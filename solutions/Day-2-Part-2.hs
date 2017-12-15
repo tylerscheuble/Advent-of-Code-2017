@@ -1,5 +1,3 @@
-import Data.List (permutations)
-
 pairs :: Eq a => [a] -> [(a,a)]
 pairs xs = [ (x1,x2) | x1 <- xs, x2 <- xs, x1 /= x2 ]
 
@@ -24,7 +22,7 @@ puzzleInput = [[1236, 741, 557, 1029, 144, 101, 1968, 2159, 1399, 80, 1139, 1167
 result :: [Int] -> Int
 result row = findResult (pairs row)
     where findResult :: [(Int, Int)] -> Int
-          findResult ((a, b):ps) = if a `mod` b == 0 
+          findResult ((a, b):ps) = if a `mod` b == 0
                                       then a `div` b
                                       else findResult ps
 
