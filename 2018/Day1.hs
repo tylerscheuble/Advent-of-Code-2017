@@ -10,9 +10,9 @@ readFrequency :: String -> Sum Int
 readFrequency ('+':xs) = Sum (read xs)
 readFrequency x        = Sum (read x)
 
-solve :: String -> Int
-solve = getSum . foldMap readFrequency  . lines
+solve1 :: String -> Int
+solve1 = getSum . foldMap readFrequency  . lines
 
 main :: IO ()
-main = print $ solve input
-
+main = do
+  print $ solve1 input
