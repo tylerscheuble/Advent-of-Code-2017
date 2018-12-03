@@ -1,3 +1,4 @@
+import           Data.Foldable    (elem)
 import           Data.List        (find, intersect, tails)
 import           Data.Map.Strict  as Map
 import           Data.Maybe       (fromJust)
@@ -19,9 +20,7 @@ countBy p (x:xs)
   | otherwise = countBy p xs
 
 checksum :: [Histogram Char] -> Int
-checksum xs = countBy (hasN 2) xs * countBy (hasN 3) xs
-  where hasN :: Int -> Histogram a -> Bool
-        hasN n = any ((==) n)
+checksum xs = countBy (elem 2) xs * countBy (elem 3) xs
 
 pairs :: [a] -> [(a, a)]
 pairs l = [(x,y) | (x:ys) <- tails l, y <- ys]
