@@ -19,8 +19,9 @@ countBy p (x:xs)
   | p(x)      = 1 + countBy p xs
   | otherwise = countBy p xs
 
-checksum :: [Histogram Char] -> Int
-checksum xs = countBy (elem 2) xs * countBy (elem 3) xs
+checksum :: [String] -> Int
+checksum xs = countBy (elem 2) hists * countBy (elem 3) hists
+  where hists = fmap histogram xs
 
 pairs :: [a] -> [(a, a)]
 pairs l = [(x,y) | (x:ys) <- tails l, y <- ys]
@@ -29,9 +30,7 @@ differences :: String -> String -> Int
 differences a b = sum $ zipWith (\x y -> if x /= y then 1 else 0) a b
 
 solve1 :: String -> Int
-solve1 = checksum
-  . fmap histogram
-  . lines
+solve1 = checksum . lines
 
 -- brute forcing is fast enough
 solve2 :: String -> String
