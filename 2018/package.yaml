@@ -9,6 +9,7 @@ copyright:           "2018 Tyler Scheuble"
 dependencies:
   - base >= 4.7 && < 5
   - containers
+  - matrix
 
 library:
   source-dirs: src
