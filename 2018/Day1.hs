@@ -15,9 +15,6 @@ readFrequency :: String -> Sum Int
 readFrequency ('+':xs) = Sum $ read xs
 readFrequency x        = Sum $ read x
 
-repeating :: [a] -> [a]
-repeating = concat . repeat
-
 concatenations :: Monoid m => m -> [m] -> [m]
 concatenations p []     = [p]
 concatenations p (x:xs) = p : concatenations (p <> x) xs
@@ -40,7 +37,7 @@ solve2 = fromJust
   . firstDup
   . fmap getSum
   . concatenations mempty
-  . repeating
+  . cycle
   . fmap readFrequency
   . lines
 
