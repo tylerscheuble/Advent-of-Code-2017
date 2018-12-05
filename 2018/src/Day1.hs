@@ -8,7 +8,7 @@ import           System.IO.Unsafe (unsafePerformIO)
 
 {-# NOINLINE input #-}
 input :: String
-input = unsafePerformIO $ readFile "./Day1-Input.txt"
+input = unsafePerformIO $ readFile "input/Day1.txt"
 
 -- read can't handle unary plus
 readFrequency :: String -> Sum Int
@@ -41,6 +41,6 @@ solve2 = fromJust
   . fmap readFrequency
   . lines
 
-solution1 = solve1 input
-
-solution2 = solve2 input
+main = do
+  print $ solve1 input
+  print $ solve2 input

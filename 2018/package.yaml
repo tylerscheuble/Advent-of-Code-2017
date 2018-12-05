@@ -1,0 +1,27 @@
+name:                aoc2018
+version:             0.1.0.0
+github:              "tylerscheuble/advent-of-code"
+license:             Unlicense
+author:              "Tyler Scheuble"
+maintainer:          "tyler@scheuble.us"
+copyright:           "2018 Tyler Scheuble"
+
+dependencies:
+  - base >= 4.7 && < 5
+  - containers
+
+library:
+  source-dirs: src
+
+executables:
+  day-1:
+    main:                Day1
+    source-dirs:         src
+
+  day-2:
+    main:                Day2
+    source-dirs:         src
+
+  day-3:
+    main:                Day3
+    source-dirs:         src

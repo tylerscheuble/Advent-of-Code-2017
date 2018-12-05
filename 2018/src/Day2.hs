@@ -8,7 +8,7 @@ import           System.IO.Unsafe (unsafePerformIO)
 
 {-# NOINLINE input #-}
 input :: String
-input = unsafePerformIO $ readFile "./Day2-Input.txt"
+input = unsafePerformIO $ readFile "input/Day2.txt"
 
 type Histogram a = Map a Int
 
@@ -43,6 +43,6 @@ solve2 = uncurry intersect
   . pairs
   . lines
 
-solution1 = solve1 input
-
-solution2 = solve2 input
+main = do
+  print $ solve1 input
+  print $ solve2 input
