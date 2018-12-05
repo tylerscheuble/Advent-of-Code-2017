@@ -1,9 +1,12 @@
+module Day2 where
+
 import           Data.Foldable    (elem)
 import           Data.List        (find, intersect, tails)
 import           Data.Map.Strict  as Map
 import           Data.Maybe       (fromJust)
 import           System.IO.Unsafe (unsafePerformIO)
 
+{-# NOINLINE input #-}
 input :: String
 input = unsafePerformIO $ readFile "./Day2-Input.txt"
 
@@ -16,7 +19,7 @@ histogram (x:xs) = insertWith (+) x 1 $ histogram xs
 countBy :: (a -> Bool) -> [a] -> Int
 countBy _ [] = 0
 countBy p (x:xs)
-  | p(x)      = 1 + countBy p xs
+  | p x       = 1 + countBy p xs
   | otherwise = countBy p xs
 
 checksum :: [String] -> Int
@@ -34,13 +37,12 @@ solve1 = checksum . lines
 
 -- brute forcing is fast enough
 solve2 :: String -> String
-solve2 = (\(a, b) -> intersect a b)
+solve2 = uncurry intersect
   . fromJust
   . find (\(a, b) -> differences a b == 1)
   . pairs
   . lines
 
-main :: IO ()
-main = do
-  print $ solve1 input
-  print $ solve2 input
+solution1 = solve1 input
+
+solution2 = solve2 input

@@ -1,9 +1,12 @@
+module Day1 where
+
 import           Data.Foldable    (foldMap)
 import           Data.Maybe       (fromJust)
 import           Data.Monoid
 import           Data.Set         as Set
 import           System.IO.Unsafe (unsafePerformIO)
 
+{-# NOINLINE input #-}
 input :: String
 input = unsafePerformIO $ readFile "./Day1-Input.txt"
 
@@ -17,7 +20,7 @@ repeating = concat . repeat
 
 concatenations :: Monoid m => m -> [m] -> [m]
 concatenations p []     = [p]
-concatenations p (x:xs) = p:(concatenations (p <> x) xs)
+concatenations p (x:xs) = p : concatenations (p <> x) xs
 
 firstDup :: Ord a => [a] -> Maybe a
 firstDup = firstDup' empty
@@ -41,7 +44,6 @@ solve2 = fromJust
   . fmap readFrequency
   . lines
 
-main :: IO ()
-main = do
-  print $ solve1 input
-  print $ solve2 input
+solution1 = solve1 input
+
+solution2 = solve2 input
