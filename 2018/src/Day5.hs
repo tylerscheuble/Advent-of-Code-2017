@@ -1,12 +1,7 @@
 module Day5 where
 
-import           Control.Applicative (liftA2)
-import           Data.Char           (isLetter, isLower, isUpper, toLower,
-                                      toUpper)
-import           Data.List           (dropWhileEnd, notElem, nub)
-import           Data.Set            (Set)
-import qualified Data.Set            as Set
-import           System.IO.Unsafe    (unsafePerformIO)
+import           Data.Char        (isLetter, isLower, isUpper, toLower, toUpper)
+import           System.IO.Unsafe (unsafePerformIO)
 
 {-# NOINLINE input #-}
 input :: String
