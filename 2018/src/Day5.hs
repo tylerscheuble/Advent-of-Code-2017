@@ -1,32 +1,32 @@
 module Day5 where
 
-import           Data.Char        (isLetter, isLower, isUpper, toLower, toUpper)
-import           Data.List        (dropWhileEnd, notElem, nub)
-import           Data.Set         (Set)
-import qualified Data.Set         as Set
-import           System.IO.Unsafe (unsafePerformIO)
+import           Control.Applicative (liftA2)
+import           Data.Char           (isLetter, isLower, isUpper, toLower,
+                                      toUpper)
+import           Data.List           (dropWhileEnd, notElem, nub)
+import           Data.Set            (Set)
+import qualified Data.Set            as Set
+import           System.IO.Unsafe    (unsafePerformIO)
 
 {-# NOINLINE input #-}
 input :: String
 input = unsafePerformIO $ readFile "input/Day5.txt"
-
-deleteAll :: Ord a => a -> [a] -> [a]
-deleteAll _ [] = []
-deleteAll e (x:xs) | e == x    = deleteAll e xs
-                   | otherwise = x : deleteAll e xs
 
 swapCase :: Char -> Char
 swapCase c | isUpper c = toLower c
            | isLower c = toUpper c
            | otherwise = c
 
+type Polymer = String
+
 reactsTo :: Char -> Char -> Bool
 reactsTo a b = a /= b && a == swapCase b
 
-type Polymer = String
+sameType :: Char -> Char -> Bool
+sameType a b = a == b || a == swapCase b
 
 react :: Polymer -> Polymer
-react [] = []
+react []  = []
 react [x] = [x]
 react [a, b]
   | a `reactsTo` b = []
@@ -42,7 +42,11 @@ solve1 = length
   . filter isLetter
 
 solve2 :: String -> Int
-solve2 = undefined
+solve2 = minimum
+  . map (length . react)
+  . (\x -> [ filter (not . sameType t) x | t <- ['A'..'Z'] ])
+  . react
+  . filter isLetter
 
 main = do
   print $ solve1 input
