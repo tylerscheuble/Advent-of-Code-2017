@@ -7,29 +7,26 @@ import           System.IO.Unsafe (unsafePerformIO)
 input :: String
 input = unsafePerformIO $ readFile "input/Day5.txt"
 
-swapCase :: Char -> Char
+swapCase :: Type -> Type
 swapCase c | isUpper c = toLower c
            | isLower c = toUpper c
            | otherwise = c
 
+type Type = Char
 type Polymer = String
 
-reactsTo :: Char -> Char -> Bool
+reactsTo :: Type -> Type -> Bool
 reactsTo a b = a /= b && a == swapCase b
 
-sameType :: Char -> Char -> Bool
+sameType :: Type -> Type -> Bool
 sameType a b = a == b || a == swapCase b
 
 react :: Polymer -> Polymer
-react []  = []
-react [x] = [x]
-react [a, b]
-  | a `reactsTo` b = []
-  | otherwise      = [a, b]
-react (a:b:xs)
-  | a `reactsTo` b = react xs
-  | otherwise      = react (a : take 1 rest) ++ drop 1 rest
-  where rest       = react (b:xs)
+react = foldr react' ""
+  where react' x [] = [x]
+        react' x (y:ys)
+          | x `reactsTo` y = ys
+          | otherwise      = x:y:ys
 
 solve1 :: String -> Int
 solve1 = length
