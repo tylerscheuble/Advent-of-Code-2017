@@ -35,3 +35,11 @@ executables:
   day-5:
     main:                Day5
     source-dirs:         src
+
+  day-6:
+    main:                Day6
+    source-dirs:         src
+
+  day-7:
+    main:                Day7
+    source-dirs:         src
