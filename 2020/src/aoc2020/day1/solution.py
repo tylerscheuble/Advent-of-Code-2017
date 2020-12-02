@@ -10,8 +10,8 @@ logger = logging.getLogger(__name__)
 DAY = 1
 
 
-def parse_input(str) -> List[int]:
-    return [int(x) for x in str.splitlines()]
+def parse_input(data: str) -> List[int]:
+    return [int(x) for x in data.splitlines()]
 
 
 def solve_part_1() -> str:
