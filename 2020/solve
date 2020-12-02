@@ -1,0 +1,36 @@
+#!/usr/bin/env python3
+import logging
+from importlib import import_module
+
+import typer
+
+logger = logging.getLogger(__name__)
+
+
+def main(day: int):
+    logging.basicConfig(level=logging.INFO)
+
+    logger.info(f"Loading day {day}")
+    solution = import_module(f"aoc2020.day{day}.solution")
+
+    logger.info("Solving part 1")
+    part_1_solver = getattr(solution, "solve_part_1")
+    try:
+        part_1_solution = part_1_solver()
+        print("Part 1 solution:", part_1_solution)
+    except NotImplementedError:
+        logger.error(f"Part 1 is not implemented for day {day}")
+        exit(1)
+
+    logger.info("Solving part 2")
+    part_2_solver = getattr(solution, "solve_part_2")
+    try:
+        part_2_solution = part_2_solver()
+        print("Part 2 solution:", part_2_solution)
+    except NotImplementedError:
+        logger.error(f"Part 2 is not implemented for day {day}")
+        exit(1)
+
+
+if __name__ == "__main__":
+    typer.run(main)
