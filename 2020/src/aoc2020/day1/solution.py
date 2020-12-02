@@ -1,5 +1,6 @@
 import bisect
 import logging
+from itertools import permutations
 from typing import List
 
 from aoc2020.common.input import load_input
@@ -16,24 +17,20 @@ def parse_input(str) -> List[int]:
 def solve_part_1() -> str:
     entries = sorted(parse_input(load_input(DAY)))
 
-    # NOTE: This could break if there is one entry of 1010
-    # (half of 2020). I'm going to ignore that case as
-    # it is not in my input.
-    assert not any(x == 1010 for x in entries)
-
-    for i, entry in enumerate(entries):
-        target = 2020 - entry
-
-        # a binary search against each entry gives us
-        # O(n log n) instead of O(n^2)
-        closest = entries[bisect.bisect_left(entries, target)]
-
-        if closest == target:
-            return str(entry * closest)
+    options = permutations(entries, 2)
+    for a, b in options:
+        if a + b == 2020:
+            return str(a * b)
 
     raise ValueError("No solution found")
 
 
 def solve_part_2() -> str:
-    inpt = load_input(DAY)  # noqa: F841
-    raise NotImplementedError
+    entries = sorted(parse_input(load_input(DAY)))
+
+    options = permutations(entries, 3)
+    for a, b, c in options:
+        if a + b + c == 2020:
+            return str(a * b * c)
+
+    raise ValueError("No solution found")
