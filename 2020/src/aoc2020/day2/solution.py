@@ -31,10 +31,29 @@ def parse_password(data: str) -> Optional[Password]:
     return Password(passwd)
 
 
-def parse_input(data: str) -> List[Password]:
+def parse_password_2(data: str) -> Optional[Password]:
+    match = password_regex.match(data)
+    assert match
+
+    policy_i = int(match[1]) - 1
+    policy_j = int(match[2]) - 1
+    policy_char = match[3]
+    passwd = match[4]
+
+    if (passwd[policy_i] == policy_char) ^ (passwd[policy_j] == policy_char):
+        return Password(passwd)
+
+    return None
+
+
+def parse_input(data: str, new_criteria: bool = False) -> List[Password]:
     result = []
     for line in data.splitlines():
-        pwd = parse_password(line)
+        if new_criteria:
+            pwd = parse_password_2(line)
+        else:
+            pwd = parse_password(line)
+
         if pwd is not None:
             result.append(pwd)
 
@@ -47,5 +66,5 @@ def solve_part_1() -> str:
 
 
 def solve_part_2() -> str:
-    inpt = load_input(DAY)  # noqa: F841
-    raise NotImplementedError
+    passwords = parse_input(load_input(DAY), True)
+    return str(len(passwords))
